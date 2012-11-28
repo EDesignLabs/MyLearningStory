@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Profile</title>
+    <link href="css/style.css" media="all" rel="stylesheet" type="text/css"/>
+	<link type="text/css" rel="stylesheet" href="css/visualize.css"/>
+	<!-- <link type="text/css" rel="stylesheet" href="css/visualize-dark.css"/> -->
+	<link type="text/css" rel="stylesheet" href="css/demopage.css"/>
+	
+  </head>
+  <body>
+	<div id="container">
+		<div id="nav">
+			
+		</div>
+		<div>
+			<img src="images/profile1.png" style="position:absolute;top:0px;">
+			
+			<table id="graphs" class="pie line" style="visibility:hidden;">
+				<caption>Behaviors</caption>
+				<thead>
+					<tr>
+						<td></td>
+						<th>1</th>
+						<th>2</th>
+						<th>3</th>
+						<th>4</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>Reading</th>
+						<td>0</td>
+						<td>4</td>
+						<td>4</td>
+						<td>2</td>
+					</tr>
+					<tr>
+						<th>Writing</th>
+						<td>0</td>
+						<td>0</td>
+						<td>1</td>
+						<td>3</td>
+					</tr>
+					<tr>
+						<th>Researching</th>
+						<td>1</td>
+						<td>4</td>
+						<td>6</td>
+						<td>5</td>
+					</tr>
+				</tbody>
+			</table>
+				
+		</div>
+	</div>
+	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>	
+	<script type="text/javascript" src="js/visualize.jQuery.js"></script>
+	<script src="js/tooltip.visualize.jQuery.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function(){
+				//make some charts
+				$('table.pie').visualize({
+					type: 'pie',
+					pieMargin: 10,
+					title: 'Tasks',
+					interaction: true,
+					tooltip: true
+				});	
+				$('table.line').visualize({
+					type: 'line',
+					lineDots: 'double',
+					lineMargin: 0,
+					interaction: true,
+					tooltip: true
+				});
+				
+				// Modify point scaling based on the table data
+				$('#us2').bind('vizualizeBeforeDraw',function marginBeforeDraw(e,data){
+					var item,i,j,len = data.tableData.allItems.length;
+					var multiplier;
+					for(i=0;i<len;i+=1) { item = data.tableData.allItems[i];
+						multiplier = 0.2+parseFloat(item.xLabels[1],10)/2;
+						item.dotSize = item.dotSize*multiplier;
+						item.dotInnerSize = item.dotSize-Math.PI/2*data.options.lineWeight;
+					}
+				});
+				
+				
+				$('#us2').visualize({
+					type: 'line',
+					lineDots: 'double',
+					width: 600,
+					interaction: true,
+					multiHover: 15,
+					chartId: 'us-chart2',
+					tooltip: true,
+					tooltiphtml: function(data) {
+						var html ='';
+						for(var i=0;i<data.point.length;i++){
+							html += '<p style="font-weight:bold;color:'+data.point[i].color+';"><big>'+data.point[i].value+'%</big> - '+data.point[i].yLabels[0]+'</p>';
+						}
+						html += '<p>Date:'+data.point[0].xLabels[0]+'</p>'+
+							'<p>Error margin: '+data.point[0].xLabels[1]+'</p>';
+						return html;
+					}
+				});
+				
+				$('table#us').visualize({
+					type: 'line',
+					width:1300,
+					height:300,
+					lineWeight:1,
+					interaction: true,
+					tooltip: true,
+					chartId: 'us-chart',
+					tooltiphtml: function(data) {
+						return '<p>'+data.point.value+' - '+data.point.yLabels[0]+'</p>'+
+							'<p>'+data.point.xLabels[0]+'</p>';
+					}
+				});
+				
+				// Change inner color on mouseover intecation
+				if(!$.browser.msie) { // IE is a bit slow, but is possible. Future versions may solve this problem
+					var currentHoverPoint = null;
+					// listen for hovering events
+					$('table.line')
+						.bind('vizualizeOver',function(e,data){
+							currentHoverPoint = data.point;
+							$(data.point.elem).parents('table').trigger('visualizeRedraw');
+						})
+						.bind('vizualizeOut',function(e,data){
+							currentHoverPoint = null;
+							$(data.point.elem).parents('table').trigger('visualizeRedraw');
+						});
+				
+					// Modify painting for hovering effect
+					$('table.line').bind('vizualizeBeforeDraw',function hoverBeforeDraw(e,data){
+						if(currentHoverPoint) {
+							var item,i,j,len = data.tableData.allItems.length;
+							for(i=0;i<len;i+=1) { item = data.tableData.allItems[i];
+								if(currentHoverPoint == item) {
+									item.innerColor = item.color;
+									// item.dotSize = item.dotSize*1.4;
+									// item.dotInnerSize = item.dotInnerSize*1.4;
+								}
+							}
+						}
+					});
+					
+				}
+				
+				
+			});
+		</script>	
+	
+  </body>
+
+</html>
