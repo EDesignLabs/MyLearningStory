@@ -1,0 +1,105 @@
+body{
+    text-align:center;
+    padding: 20px 0px 0px 0px;
+    background:#F4F4F4;
+}
+
+#overview{
+    margin: 0px auto;
+    width:1080px;
+}
+
+#overview #nav li{
+    width:150px;
+    list-style:none;
+    float:left;
+    position:relative;
+    padding: 0px 0px 0px 15px;
+}
+
+#overview #nav li p{
+    font-family: Georgia, serif;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: normal;
+    text-transform: normal;
+    letter-spacing: normal;
+    text-align:center;
+	color: #626262;
+	text-shadow: #cecece 1px 1px 0;
+}
+
+#overview #nav li ul li{
+	color: white;
+    background:#81CEF9;
+    font-family:Helvetica;
+    padding:3px 3px 3px 3px;
+    margin:0px 0px 3px 0px;
+}
+
+#today-i-title{
+    
+}
+
+#tag-input {	
+	clear: both;
+}
+
+#tag-input .tags{	
+	width: 400px;
+}
+
+h2{
+    font-family: Georgia, serif;
+    font-size: 24px;
+    font-style: italic;
+    font-weight: normal;
+    text-transform: normal;
+    letter-spacing: normal;
+    text-align:center;
+	color: #626262;
+	text-shadow: #cecece 1px 1px 0;
+}
+#tag-input ul li{
+    
+}
+
+#name-enter {
+    width:200px;
+    position:absolute;
+    left:150px;
+    top:20px;
+}
+.section-tags{
+    width:100px;
+    text-align:left;
+}
+.section-tags li{
+    padding:0px;
+    left:-40px;
+    float:left;
+    clear:both;
+    margin:0px;
+    font-family: Georgia, serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: bold;
+    text-transform: normal;
+    letter-spacing: normal;
+    overflow:none;
+    text-align:left;
+	color: #F17C71;
+}
+
+#continue-nav{
+    position: absolute;
+    top:500px;
+    left:600px;
+    clear:both;
+}
+.visualize{
+    float:left;
+    position:relative;
+    left:130px;
+    top:-80px;
+}
